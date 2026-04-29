@@ -10,7 +10,7 @@ var __exportAll = (all, no_symbols) => {
 	return target;
 };
 //#endregion
-//#region \0@oxc-project+runtime@0.115.0/helpers/typeof.js
+//#region \0@oxc-project+runtime@0.122.0/helpers/typeof.js
 function _typeof(o) {
 	"@babel/helpers - typeof";
 	return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
@@ -20,7 +20,7 @@ function _typeof(o) {
 	}, _typeof(o);
 }
 //#endregion
-//#region \0@oxc-project+runtime@0.115.0/helpers/toPrimitive.js
+//#region \0@oxc-project+runtime@0.122.0/helpers/toPrimitive.js
 function toPrimitive(t, r) {
 	if ("object" != _typeof(t) || !t) return t;
 	var e = t[Symbol.toPrimitive];
@@ -32,13 +32,13 @@ function toPrimitive(t, r) {
 	return ("string" === r ? String : Number)(t);
 }
 //#endregion
-//#region \0@oxc-project+runtime@0.115.0/helpers/toPropertyKey.js
+//#region \0@oxc-project+runtime@0.122.0/helpers/toPropertyKey.js
 function toPropertyKey(t) {
 	var i = toPrimitive(t, "string");
 	return "symbol" == _typeof(i) ? i : i + "";
 }
 //#endregion
-//#region \0@oxc-project+runtime@0.115.0/helpers/defineProperty.js
+//#region \0@oxc-project+runtime@0.122.0/helpers/defineProperty.js
 function _defineProperty(e, r, t) {
 	return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
 		value: t,
@@ -1649,7 +1649,7 @@ const enlivenObjectEnlivables = (serializedObject, { signal } = {}) => new Promi
 		/**
 		* clipPath or shadow or gradient or text on a path or a pattern,
 		* or the backgroundImage or overlayImage of canvas
-		* If we have a type and there is a classe registered for it, we enlive it.
+		* If we have a type and there is a class registered for it, we enlive it.
 		* If there is no class registered for it we return the value as is
 		* */
 		if (value.type && classRegistry.has(value.type)) return enlivenObjects([value], { signal }).then(([enlived]) => {
@@ -4619,7 +4619,7 @@ const easeInOutExpo = (t, b, c, d) => {
 	if (t === d) return b + c;
 	t /= d / 2;
 	if (t < 1) return c / 2 * 2 ** (10 * (t - 1)) + b;
-	return c / 2 * -(2 ** (-10 * --t) + 2) + b;
+	return c / 2 * -(2 ** (-10 * (t - 1)) + 2) + b;
 };
 /**
 * Circular easing in
@@ -9599,7 +9599,7 @@ const commaWsp = `\\s*,?\\s*`;
 /**
 * p for param
 * using "bad naming" here because it makes the regex much easier to read
-* p is a number that is preceded by an arbitary number of spaces, maybe 0,
+* p is a number that is preceded by an arbitrary number of spaces, maybe 0,
 * a comma or not, and then possibly more spaces or not.
 */
 const p = `${commaWsp}(${reNum})`;
@@ -10164,7 +10164,8 @@ const parsePath = (pathString) => {
 		let paramArr = [];
 		if (commandLetter === "a" || commandLetter === "A") {
 			regExpArcCommandPoints.lastIndex = 0;
-			for (let out = null; out = regExpArcCommandPoints.exec(matchStr);) paramArr.push(...out.slice(1));
+			let out;
+			while (out = regExpArcCommandPoints.exec(matchStr)) paramArr.push(...out.slice(1));
 		} else paramArr = matchStr.match(reMyNum) || [];
 		for (let i = 0; i < paramArr.length; i += commandLength) {
 			const newCommand = new Array(commandLength);
@@ -10293,7 +10294,7 @@ const joinPath = (pathData, fractionDigits) => pathData.map((segment) => {
 * Merges 2 clip paths into one visually equal clip path
 *
 * **IMPORTANT**:\
-* Does **NOT** clone the arguments, clone them proir if necessary.
+* Does **NOT** clone the arguments, clone them prior if necessary.
 *
 * Creates a wrapper (group) that contains one clip path and is clipped by the other so content is kept where both overlap.
 * Use this method if both the clip paths may have nested clip paths of their own, so assigning one to the other's clip path property is not possible.
@@ -15866,7 +15867,7 @@ var FabricText = class FabricText extends StyledText {
 	* @private
 	* @param {String} method fillText or strokeText.
 	* @param {CanvasRenderingContext2D} ctx Context to render on
-	* @param {Array} line Content of the line, splitted in an array by grapheme
+	* @param {Array} line Content of the line, split in an array by grapheme
 	* @param {Number} left
 	* @param {Number} top
 	* @param {Number} lineIndex
@@ -16136,7 +16137,7 @@ var FabricText = class FabricText extends StyledText {
 			let lastDecorationColor = this.getValueOfPropertyAt(i, 0, "textDecorationColor") || lastFill;
 			let lastTickness = this.getValueOfPropertyAt(i, 0, TEXT_DECORATION_THICKNESS);
 			let currentDecoration = lastDecoration;
-			let currentFill = lastFill;
+			let currentFill;
 			let currentDecorationColor = lastDecorationColor;
 			let currentTickness = lastTickness;
 			const top = topOffset + maxHeight * (1 - this._fontSizeFraction);
@@ -17903,7 +17904,7 @@ const ctrlKeysMapDown = { 65: "cmdAll" };
 * Set the transform of the passed context to the same of a specific Canvas or StaticCanvas.
 * setTransform is used since this utility will RESET the ctx transform to the basic value
 * of retina scaling and viewport transform
-* It is not meant to be added to other transforms, it is used internally to preapre canvases to draw
+* It is not meant to be added to other transforms, it is used internally to prepare canvases to draw
 * @param ctx
 * @param canvas
 */
@@ -18301,7 +18302,7 @@ var IText = class IText extends ITextClickBehavior {
 		const selectionStart = selection.selectionStart, selectionEnd = selection.selectionEnd, isJustify = textAlign.includes(JUSTIFY), start = this.get2DCursorLocation(selectionStart), end = this.get2DCursorLocation(selectionEnd), startLine = start.lineIndex, endLine = end.lineIndex, startChar = start.charIndex < 0 ? 0 : start.charIndex, endChar = end.charIndex < 0 ? 0 : end.charIndex;
 		for (let i = startLine; i <= endLine; i++) {
 			const lineOffset = this._getLineLeftOffset(i) || 0;
-			let lineHeight = this.getHeightOfLine(i), realLineHeight = 0, boxStart = 0, boxEnd = 0;
+			let lineHeight = this.getHeightOfLine(i), boxStart = 0, boxEnd = 0;
 			if (i === startLine) boxStart = this.__charBounds[startLine][startChar].left;
 			if (i >= startLine && i < endLine) boxEnd = isJustify && !this.isEndOfWrapping(i) ? this.width : this.getLineWidth(i) || 5;
 			else if (i === endLine) if (endChar === 0) boxEnd = this.__charBounds[endLine][endChar].left;
@@ -18309,7 +18310,7 @@ var IText = class IText extends ITextClickBehavior {
 				const charSpacing = this._getWidthOfCharSpacing();
 				boxEnd = this.__charBounds[endLine][endChar - 1].left + this.__charBounds[endLine][endChar - 1].width - charSpacing;
 			}
-			realLineHeight = lineHeight;
+			const realLineHeight = lineHeight;
 			if (this.lineHeight < 1 || i === endLine && this.lineHeight > 1) lineHeight /= this.lineHeight;
 			let drawStart = boundaries.left + lineOffset + boxStart, drawHeight = lineHeight, extraTop = 0;
 			const drawWidth = boxEnd - boxStart;
@@ -18476,7 +18477,7 @@ var Textbox = class Textbox extends IText {
 	*/
 	isEmptyStyles(lineIndex) {
 		if (!this.styles) return true;
-		let offset = 0, nextLineIndex = lineIndex + 1, nextOffset, shouldLimit = false;
+		let offset = 0, nextLineIndex, nextOffset, shouldLimit = false;
 		const map = this._styleMap[lineIndex], mapNextLine = this._styleMap[lineIndex + 1];
 		if (map) {
 			lineIndex = map.line;
@@ -18647,7 +18648,6 @@ var Textbox = class Textbox extends IText {
 		desiredWidth -= reservedSpace;
 		const maxWidth = Math.max(desiredWidth, largestWordWidth, this.dynamicMinWidth);
 		const data = wordsData[lineIndex];
-		offset = 0;
 		let i;
 		for (i = 0; i < data.length; i++) {
 			const { word, width: wordWidth } = data[i];
@@ -19782,8 +19782,6 @@ function applyViewboxTransform(element) {
 	const viewBoxAttr = element.getAttribute("viewBox");
 	let scaleX = 1;
 	let scaleY = 1;
-	let minX = 0;
-	let minY = 0;
 	let matrix;
 	let el;
 	const widthAttr = element.getAttribute("width");
@@ -19818,8 +19816,8 @@ function applyViewboxTransform(element) {
 		return parsedDim;
 	}
 	const pasedViewBox = viewBoxAttr.match(reViewBoxAttrValue);
-	minX = -parseFloat(pasedViewBox[1]);
-	minY = -parseFloat(pasedViewBox[2]);
+	const minX = -parseFloat(pasedViewBox[1]);
+	const minY = -parseFloat(pasedViewBox[2]);
 	const viewBoxWidth = parseFloat(pasedViewBox[3]);
 	const viewBoxHeight = parseFloat(pasedViewBox[4]);
 	parsedDim.minX = minX;
@@ -22635,7 +22633,7 @@ var Resize = class extends BaseFilter {
 		const ratioW = this.rcpScaleX, ratioH = this.rcpScaleY, ratioWHalf = Math.ceil(ratioW / 2), ratioHHalf = Math.ceil(ratioH / 2), data = options.imageData.data, img2 = options.ctx.createImageData(dW, dH), data2 = img2.data;
 		for (let j = 0; j < dH; j++) for (let i = 0; i < dW; i++) {
 			const x2 = (i + j * dW) * 4;
-			let weight = 0;
+			let weight;
 			let weights = 0;
 			let weightsAlpha = 0;
 			let gxR = 0;

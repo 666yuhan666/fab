@@ -668,9 +668,12 @@ export class Group
     for (let i = 0; i < this._objects.length; i++) {
       svgString.push('\t', this._objects[i].toClipPathSVG(reviver));
     }
-    return this._createBaseClipPathSVGMarkup(svgString, {
-      reviver,
-    });
+    return (
+      '\t' +
+      this._createBaseClipPathSVGMarkup(svgString, {
+        reviver,
+      })
+    );
   }
 
   /**
