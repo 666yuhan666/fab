@@ -430,7 +430,7 @@ export class Group
         object,
         multiplyTransformMatrices(
           this.calcTransformMatrix(),
-          object.calcTransformMatrix(),
+          object.calcOwnMatrix(),
         ),
       );
       object.setCoords();

@@ -175,7 +175,9 @@ export class FabricObjectSVGExportMixin {
       ].join(''),
       // insert commons in the markup, style and svgCommons
       index = objectMarkup.indexOf('COMMON_PARTS');
-    objectMarkup[index] = commonPieces;
+    if (index >= 0) {
+      objectMarkup[index] = commonPieces;
+    }
     return reviver ? reviver(objectMarkup.join('')) : objectMarkup.join('');
   }
 
