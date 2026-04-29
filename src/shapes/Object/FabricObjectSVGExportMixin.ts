@@ -176,9 +176,6 @@ export class FabricObjectSVGExportMixin {
       index = objectMarkup.indexOf('COMMON_PARTS');
     if (index >= 0) {
       objectMarkup[index] = commonPieces;
-    } else {
-      objectMarkup.unshift('<g ', commonPieces, ' >\n');
-      objectMarkup.push('</g>\n');
     }
     return reviver ? reviver(objectMarkup.join('')) : objectMarkup.join('');
   }

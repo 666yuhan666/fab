@@ -430,7 +430,7 @@ export class Group
         object,
         multiplyTransformMatrices(
           this.calcTransformMatrix(),
-          object.calcTransformMatrix(),
+          object.calcOwnMatrix(),
         ),
       );
       object.setCoords();
@@ -668,12 +668,9 @@ export class Group
     for (let i = 0; i < this._objects.length; i++) {
       svgString.push('\t', this._objects[i].toClipPathSVG(reviver));
     }
-    return (
-      '\t' +
-      this._createBaseClipPathSVGMarkup(svgString, {
-        reviver,
-      })
-    );
+    return this._createBaseClipPathSVGMarkup(svgString, {
+      reviver,
+    });
   }
 
   /**
